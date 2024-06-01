@@ -1,3 +1,4 @@
+import 'package:dokan/core/shared/extensions/context.dart';
 import 'package:dokan/core/shared/extensions/theme.dart';
 
 import '../shared/shared.dart';
@@ -33,41 +34,18 @@ class AppConfig {
     required ThemeScheme theme,
   }) =>
       ThemeData(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         canvasColor: theme.backgroundColor,
         scaffoldBackgroundColor: theme.backgroundColor,
         splashFactory: InkRipple.splashFactory,
         inputDecorationTheme: InputDecorationTheme(
           isDense: true,
           filled: true,
-          fillColor: theme.backgroundSecondary,
-          labelStyle:
-              TextStyles.body(context: context, color: theme.textPrimary),
+          hintStyle: context.textStyle17Regular(color: theme.textSecondary),
+          fillColor: theme.backgroundColor,
+          prefixIconColor: theme.textSecondary,
+          labelStyle: context.textStyle17Regular(color: theme.textPrimary),
           contentPadding: const EdgeInsets.all(16.0),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.black, width: .5),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.black, width: 4),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.black, width: 2),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.grey, width: 1),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: theme.errorColor, width: 1),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: theme.errorColor, width: 3),
-          ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

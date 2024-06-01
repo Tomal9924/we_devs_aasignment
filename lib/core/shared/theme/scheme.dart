@@ -7,6 +7,9 @@ class ThemeScheme {
   final Color buttonColor;
   final Color errorColor;
   final Color textPrimary;
+  final Color textSecondary;
+  final Color white;
+  final Color blue;
 
   ThemeScheme({
     required this.backgroundColor,
@@ -15,6 +18,9 @@ class ThemeScheme {
     required this.shimmerColor,
     required this.errorColor,
     required this.buttonColor,
+    required this.blue,
+    required this.textSecondary,
+    required this.white,
   });
 
   factory ThemeScheme.find({
@@ -22,11 +28,14 @@ class ThemeScheme {
   }) {
     final theme = ThemeScheme(
       backgroundColor: const Color(0xFFF8F8F8),
-      backgroundSecondary: const Color(0xFF15212D),
-      textPrimary: const Color(0xFFCCD0D3),
+      backgroundSecondary: const Color(0xFF395AB81A),
+      textPrimary: Colors.black,
       shimmerColor: const Color(0xFFCCD0D3),
       errorColor: const Color.fromARGB(255, 255, 40, 40),
       buttonColor: const Color(0xFFF75F55),
+      blue: const Color(0xFF2893E3),
+      textSecondary: const Color(0xFFA4A9AF),
+      white: const Color(0xFFFFFFFF),
     );
 
     return theme;
