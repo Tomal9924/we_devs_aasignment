@@ -28,7 +28,7 @@ class ThemeScheme {
   }) {
     final theme = ThemeScheme(
       backgroundColor: const Color(0xFFF8F8F8),
-      backgroundSecondary: const Color(0xFF395AB81A),
+      backgroundSecondary: const Color.fromARGB(57, 223, 236, 215),
       textPrimary: Colors.black,
       shimmerColor: const Color(0xFFCCD0D3),
       errorColor: const Color.fromARGB(255, 255, 40, 40),

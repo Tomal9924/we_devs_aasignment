@@ -1,8 +1,8 @@
-import 'package:dokan/core/shared/extensions/context.dart';
 import 'package:dokan/core/shared/extensions/theme.dart';
 
 import 'shared.dart';
 
+// ignore: must_be_immutable
 class Input extends StatefulWidget {
   final TextEditingController controller;
   final IconData icon;
