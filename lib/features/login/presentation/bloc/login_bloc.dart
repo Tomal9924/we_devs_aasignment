@@ -1,13 +1,24 @@
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
+import 'package:dokan/core/shared/shared.dart';
+import 'package:dokan/features/login/domain/usecases/usecase.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginInitial()) {
-    on<LoginEvent>((event, emit) {
-      // TODO: implement event handler
+  final SignInUseCase useCase;
+  LoginBloc({required this.useCase}) : super(LoginInitial()) {
+    on<Login>((event, emit) async {
+      emit(const LoginLoading());
+      final result = await useCase(
+        email: event.email,
+        password: event.password,
+      );
+
+      result.fold((failure) {
+        emit(LoginError(message: failure));
+      }, (r) {
+        emit(const LoginSuccess());
+      });
     });
   }
 }

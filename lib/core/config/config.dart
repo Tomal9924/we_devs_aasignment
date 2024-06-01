@@ -1,12 +1,12 @@
-import 'package:dokan/core/shared/extensions/context.dart';
 import 'package:dokan/core/shared/extensions/theme.dart';
-import 'package:dokan/features/signup/presentation/bloc/signup_bloc.dart';
+import 'package:dokan/features/login/domain/repositories/repository.dart';
 
-import '../../features/signup/data/datasources/remote.dart';
-import '../../features/signup/data/datasources/remote_impl.dart';
-import '../../features/signup/data/repositories/repo.dart';
-import '../../features/signup/domain/repositories/repository.dart';
-import '../../features/signup/domain/usecases/usecase.dart';
+import '../../features/login/data/datasources/remote.dart';
+import '../../features/login/data/datasources/remote_impl.dart';
+import '../../features/login/data/repositories/repo.dart';
+import '../../features/login/domain/usecases/usecase.dart';
+import '../../features/login/presentation/bloc/login_bloc.dart';
+import '../../features/signup/signup.dart';
 import '../shared/shared.dart';
 
 part 'dependencies.dart';
@@ -45,14 +45,17 @@ class AppConfig {
         scaffoldBackgroundColor: theme.backgroundColor,
         splashFactory: InkRipple.splashFactory,
         inputDecorationTheme: InputDecorationTheme(
-          isDense: true,
-          filled: true,
-          hintStyle: context.textStyle17Regular(color: theme.textSecondary),
-          fillColor: theme.backgroundColor,
-          prefixIconColor: theme.textSecondary,
-          labelStyle: context.textStyle17Regular(color: theme.textPrimary),
-          contentPadding: const EdgeInsets.all(16.0),
-        ),
+            isDense: true,
+            filled: true,
+            hintStyle: context.textStyle17Regular(color: theme.textSecondary),
+            fillColor: theme.backgroundColor,
+            prefixIconColor: theme.textSecondary,
+            labelStyle: context.textStyle17Regular(color: theme.textPrimary),
+            contentPadding: const EdgeInsets.all(16.0),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: theme.errorColor),
+            )),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.black,

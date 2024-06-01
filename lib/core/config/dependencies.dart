@@ -7,6 +7,7 @@ Future<void> _setupDependencies() async {
 
   await Future.wait([
     _signUp,
+    _login,
   ]);
 }
 
@@ -62,7 +63,7 @@ Future<void> get _signUp async {
     ),
   );
   sl.registerFactory(
-    () => SignupBloc(
+    () => SignUpBloc(
       signUpUseCase: sl(),
     ),
   );
@@ -74,6 +75,30 @@ Future<void> get _signUp async {
   );
   sl.registerLazySingleton<SignUpRemoteDataSource>(
     () => SignUpRemoteDataSourceImpl(
+      client: sl(),
+    ),
+  );
+}
+
+Future<void> get _login async {
+  sl.registerLazySingleton<SignInRepository>(
+    () => SignInRepositoryImpl(
+      remoteDataSource: sl(),
+    ),
+  );
+  sl.registerFactory(
+    () => LoginBloc(
+      useCase: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<SignInUseCase>(
+    () => SignInUseCase(
+      repository: sl(),
+    ),
+  );
+  sl.registerLazySingleton<SignInRemoteDataSource>(
+    () => SignInRemoteDataSourceImpl(
       client: sl(),
     ),
   );

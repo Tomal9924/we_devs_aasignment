@@ -10,6 +10,7 @@ class ThemeScheme {
   final Color textSecondary;
   final Color white;
   final Color blue;
+  final Color successColor;
 
   ThemeScheme({
     required this.backgroundColor,
@@ -21,6 +22,7 @@ class ThemeScheme {
     required this.blue,
     required this.textSecondary,
     required this.white,
+    required this.successColor,
   });
 
   factory ThemeScheme.find({
@@ -36,6 +38,7 @@ class ThemeScheme {
       blue: const Color(0xFF2893E3),
       textSecondary: const Color(0xFFA4A9AF),
       white: const Color(0xFFFFFFFF),
+      successColor: Colors.green,
     );
 
     return theme;

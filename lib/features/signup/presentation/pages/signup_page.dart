@@ -1,10 +1,7 @@
-import 'package:dokan/core/shared/extensions/context.dart';
 import 'package:dokan/core/shared/extensions/theme.dart';
-import 'package:dokan/features/signup/presentation/widgets/photo.dart';
 
 import '../../../../core/shared/shared.dart';
-import '../../../../core/shared/text_input_field.dart';
-import '../bloc/signup_bloc.dart';
+import '../../signup.dart';
 
 class SignUpPage extends StatefulWidget {
   static const path = '/signup';
@@ -17,10 +14,13 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc, ThemeState>(
@@ -36,6 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 const ProfilePhoto(),
                 const SizedBox(height: 20),
                 Form(
+                  key: _formKey,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -109,7 +110,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(
                   width: double.infinity,
                   height: 61.h,
-                  child: BlocBuilder<SignupBloc, SignupState>(
+                  child: BlocBuilder<SignUpBloc, SignupState>(
                     builder: (context, state) {
                       if (state is SignupLoading) {
                         return ElevatedButton(
@@ -126,7 +127,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       } else if (state is SignupFailure) {
                         return ElevatedButton(
                           onPressed: () {
-                            context.read<SignupBloc>().add(
+                            context.read<SignUpBloc>().add(
                                   SignUp(
                                     name: _nameController.text,
                                     email: _emailController.text,
@@ -151,13 +152,16 @@ class _SignUpPageState extends State<SignUpPage> {
                       } else {
                         return ElevatedButton(
                           onPressed: () {
-                            context.read<SignupBloc>().add(
-                                  SignUp(
-                                    name: _nameController.text,
-                                    email: _emailController.text,
-                                    password: _passwordController.text,
-                                  ),
-                                );
+                            FocusManager.instance.primaryFocus?.unfocus();
+                            if (_formKey.currentState!.validate()) {
+                              context.read<SignUpBloc>().add(
+                                    SignUp(
+                                      name: _nameController.text,
+                                      email: _emailController.text,
+                                      password: _passwordController.text,
+                                    ),
+                                  );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: theme.buttonColor,

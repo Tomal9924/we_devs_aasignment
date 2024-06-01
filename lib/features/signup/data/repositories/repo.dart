@@ -1,8 +1,5 @@
-import 'package:either_dart/either.dart';
-
-import '../../../../core/shared/error/failure.dart';
-import '../../domain/repositories/repository.dart';
-import '../datasources/remote.dart';
+import '../../../../core/shared/shared.dart';
+import '../../signup.dart';
 
 class SignUpRepositoryImpl extends SignUpRepository {
   final SignUpRemoteDataSource remoteDataSource;

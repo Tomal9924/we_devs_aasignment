@@ -1,14 +1,12 @@
-import 'package:bloc/bloc.dart';
-import 'package:dokan/core/shared/error/failure.dart';
-import 'package:dokan/features/signup/domain/usecases/usecase.dart';
-import 'package:equatable/equatable.dart';
+import '../../../../core/shared/shared.dart';
+import '../../signup.dart';
 
 part 'signup_event.dart';
 part 'signup_state.dart';
 
-class SignupBloc extends Bloc<SignupEvent, SignupState> {
+class SignUpBloc extends Bloc<SignupEvent, SignupState> {
   final SignUpUseCase signUpUseCase;
-  SignupBloc({required this.signUpUseCase}) : super(SignupInitial()) {
+  SignUpBloc({required this.signUpUseCase}) : super(SignupInitial()) {
     on<SignUp>((event, emit) async {
       emit(const SignupLoading());
       final result = await signUpUseCase(

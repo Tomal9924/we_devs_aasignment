@@ -1,10 +1,5 @@
-import 'dart:developer';
-
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dokan/core/shared/extensions/context.dart';
 import 'package:dokan/core/shared/extensions/theme.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/shared/shared.dart';
 
@@ -55,9 +50,7 @@ class ProfilePhoto extends StatelessWidget {
                       }
                     },
                   ).onError(
-                    (error, stackTrace) {
-                      log("Error $error");
-                    },
+                    (error, stackTrace) {},
                   );
                 },
                 padding: EdgeInsets.zero,

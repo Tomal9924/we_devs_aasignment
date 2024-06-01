@@ -3,30 +3,21 @@ import 'dart:convert';
 import '../../../../core/shared/shared.dart';
 import 'remote.dart';
 
-class SignUpRemoteDataSourceImpl extends SignUpRemoteDataSource {
+class SignInRemoteDataSourceImpl extends SignInRemoteDataSource {
   final Client client;
 
-  SignUpRemoteDataSourceImpl({required this.client});
+  SignInRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<void> signUp({
+  Future<void> signIn({
     final String? email,
-    final String? name,
     final String? password,
   }) async {
     try {
-      Map<String, String> headers = {
-        'Content-Type': 'application/json',
-      };
-      Map<String, dynamic> body = {
-        "username": name ?? "",
-        "email": email ?? "",
-        "password": password ?? "",
-      };
       final response = await client.post(
-        ApiConstants.url(api: ApiConstants.signUp),
-        headers: headers,
-        body: json.encoder.convert(body).trim(),
+        ApiConstants.url(
+          api: "${ApiConstants.login}?username=$email&password=$password",
+        ),
       );
 
       if (response.statusCode == HttpStatus.ok) {
