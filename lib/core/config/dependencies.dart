@@ -5,7 +5,9 @@ final sl = GetIt.instance;
 Future<void> _setupDependencies() async {
   await _core;
 
-  await Future.wait([]);
+  await Future.wait([
+    _signUp,
+  ]);
 }
 
 Future<void> get _core async {
@@ -51,11 +53,28 @@ Future<void> get _core async {
       ],
     ),
   );
+}
 
-  // sl.registerLazySingleton<NetworkInfo>(
-  //   () => NetworkInfoImpl(
-  //     internetConnectionChecker: sl(),
-  //     addresses: sl(),
-  //   ),
-  // );
+Future<void> get _signUp async {
+  sl.registerLazySingleton<SignUpRepository>(
+    () => SignUpRepositoryImpl(
+      remoteDataSource: sl(),
+    ),
+  );
+  sl.registerFactory(
+    () => SignupBloc(
+      signUpUseCase: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<SignUpUseCase>(
+    () => SignUpUseCase(
+      repository: sl(),
+    ),
+  );
+  sl.registerLazySingleton<SignUpRemoteDataSource>(
+    () => SignUpRemoteDataSourceImpl(
+      client: sl(),
+    ),
+  );
 }

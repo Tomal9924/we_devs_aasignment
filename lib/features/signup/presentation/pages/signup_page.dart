@@ -4,6 +4,7 @@ import 'package:dokan/features/signup/presentation/widgets/photo.dart';
 
 import '../../../../core/shared/shared.dart';
 import '../../../../core/shared/text_input_field.dart';
+import '../bloc/signup_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
   static const path = '/signup';
@@ -108,15 +109,67 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(
                   width: double.infinity,
                   height: 61.h,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: theme.buttonColor,
-                    ),
-                    child: Text('Sign Up',
-                        style: context
-                            .textStyle17Medium(color: theme.backgroundColor)
-                            .copyWith(height: 1.2)),
+                  child: BlocBuilder<SignupBloc, SignupState>(
+                    builder: (context, state) {
+                      if (state is SignupLoading) {
+                        return ElevatedButton(
+                          onPressed: null,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.buttonColor,
+                          ),
+                          child: Text('Signing up...',
+                              style: context
+                                  .textStyle17Medium(
+                                      color: theme.backgroundColor)
+                                  .copyWith(height: 1.2)),
+                        );
+                      } else if (state is SignupFailure) {
+                        return ElevatedButton(
+                          onPressed: () {
+                            context.read<SignupBloc>().add(
+                                  SignUp(
+                                    name: _nameController.text,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  ),
+                                );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.buttonColor,
+                          ),
+                          child: Text('Try again!',
+                              style: context
+                                  .textStyle17Medium(
+                                      color: theme.backgroundColor)
+                                  .copyWith(height: 1.2)),
+                        );
+                      } else if (state is SignupSuccess) {
+                        return const ElevatedButton(
+                          onPressed: null,
+                          child: Icon(Icons.done_outline_rounded),
+                        );
+                      } else {
+                        return ElevatedButton(
+                          onPressed: () {
+                            context.read<SignupBloc>().add(
+                                  SignUp(
+                                    name: _nameController.text,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                  ),
+                                );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.buttonColor,
+                          ),
+                          child: Text('Sign Up',
+                              style: context
+                                  .textStyle17Medium(
+                                      color: theme.backgroundColor)
+                                  .copyWith(height: 1.2)),
+                        );
+                      }
+                    },
                   ),
                 ),
                 const SizedBox(height: 20),

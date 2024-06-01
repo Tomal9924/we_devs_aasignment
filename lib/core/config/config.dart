@@ -1,6 +1,12 @@
 import 'package:dokan/core/shared/extensions/context.dart';
 import 'package:dokan/core/shared/extensions/theme.dart';
+import 'package:dokan/features/signup/presentation/bloc/signup_bloc.dart';
 
+import '../../features/signup/data/datasources/remote.dart';
+import '../../features/signup/data/datasources/remote_impl.dart';
+import '../../features/signup/data/repositories/repo.dart';
+import '../../features/signup/domain/repositories/repository.dart';
+import '../../features/signup/domain/usecases/usecase.dart';
 import '../shared/shared.dart';
 
 part 'dependencies.dart';
