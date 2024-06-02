@@ -79,7 +79,15 @@ extension BuildContextExtension on BuildContext {
 
   ThemeBloc get themeBloc => this.read<ThemeBloc>();
 
-  TextStyle textStyle20Medium({required Color color}) => GoogleFonts.rubik(
+  TextStyle textStyle20Medium({required Color color}) => GoogleFonts.lato(
+        textStyle: TextStyle(
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w600,
+          color: color,
+        ),
+      );
+  TextStyle textStyle20MediumRoboto({required Color color}) =>
+      GoogleFonts.roboto(
         textStyle: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.w600,
@@ -116,7 +124,7 @@ extension BuildContextExtension on BuildContext {
         ),
       );
 
-  TextStyle textStyle12Medium({required Color color}) => GoogleFonts.roboto(
+  TextStyle textStyle12Medium({required Color color}) => GoogleFonts.lato(
         textStyle: TextStyle(
           fontSize: 12.sp,
           fontWeight: FontWeight.w600,
