@@ -39,12 +39,4 @@ class UserBloc extends Bloc<UserEvent, UserState> with HydratedMixin {
   Map<String, dynamic>? toJson(UserState state) {
     return state.toMap();
   }
-
-  void saveToken(String token) {
-    emit(
-      UserState(
-        user: state.user,
-      ),
-    );
-  }
 }
