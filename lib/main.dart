@@ -1,4 +1,5 @@
 import 'package:dokan/core/shared/extensions/theme.dart';
+import 'package:dokan/features/login/presentation/bloc/user/bloc/user_bloc.dart';
 
 import 'core/shared/shared.dart';
 
@@ -9,6 +10,7 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => sl<ThemeBloc>()),
+        BlocProvider(create: (_) => sl<UserBloc>()),
       ],
       child: const MainApp(),
     ),

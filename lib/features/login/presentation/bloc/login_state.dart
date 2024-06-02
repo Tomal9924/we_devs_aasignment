@@ -14,7 +14,8 @@ class LoginLoading extends LoginState {
 }
 
 class LoginSuccess extends LoginState {
-  const LoginSuccess();
+  final User user;
+  const LoginSuccess({required this.user});
 }
 
 class LoginError extends LoginState {
