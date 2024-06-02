@@ -5,6 +5,7 @@ import 'package:dokan/features/login/presentation/bloc/user/bloc/user_bloc.dart'
 import '../../../../core/shared/enums/enum.dart';
 import '../../../../core/shared/form_validator.dart';
 import '../../../../core/shared/shared.dart';
+import '../../../dashboard/presentation/pages/dashboard.dart';
 
 class SignInPage extends StatefulWidget {
   static const path = '/signin';
@@ -173,6 +174,7 @@ class _SignInPageState extends State<SignInPage> {
                         BlocProvider.of<UserBloc>(context).add(
                           SaveUser(user: user),
                         );
+                        context.go(DashboardPage.path);
                       }
                     },
                     builder: (context, state) {
