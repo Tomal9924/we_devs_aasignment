@@ -1,5 +1,7 @@
+import '../model/user.dart';
+
 abstract class SignInRemoteDataSource {
-  Future<void> signIn({
+  Future<User> signIn({
     final String email,
     final String password,
   });

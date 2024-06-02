@@ -86,6 +86,9 @@ Future<void> get _login async {
       remoteDataSource: sl(),
     ),
   );
+    sl.registerFactory(
+    () => UserBloc(),
+  );
   sl.registerFactory(
     () => LoginBloc(
       useCase: sl(),

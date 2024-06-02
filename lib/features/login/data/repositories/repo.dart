@@ -1,6 +1,7 @@
 import '../../../../core/shared/shared.dart';
 import '../../domain/repositories/repository.dart';
 import '../datasources/remote.dart';
+import '../model/user.dart';
 
 class SignInRepositoryImpl extends SignInRepository {
   final SignInRemoteDataSource remoteDataSource;
@@ -8,7 +9,7 @@ class SignInRepositoryImpl extends SignInRepository {
   SignInRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, void>> signIn({
+  Future<Either<Failure, User>> signIn({
     required String email,
     required String password,
   }) async {

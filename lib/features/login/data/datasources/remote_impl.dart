@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../../../core/shared/shared.dart';
+import '../model/user.dart';
 import 'remote.dart';
 
 class SignInRemoteDataSourceImpl extends SignInRemoteDataSource {
@@ -9,7 +10,7 @@ class SignInRemoteDataSourceImpl extends SignInRemoteDataSource {
   SignInRemoteDataSourceImpl({required this.client});
 
   @override
-  Future<void> signIn({
+  Future<User> signIn({
     final String? email,
     final String? password,
   }) async {
@@ -22,11 +23,7 @@ class SignInRemoteDataSourceImpl extends SignInRemoteDataSource {
 
       if (response.statusCode == HttpStatus.ok) {
         final Map<String, dynamic> result = json.decode(response.body);
-        if (result['code'] == 200) {
-          return;
-        } else {
-          throw const ServerRequestFailure();
-        }
+        return User.fromJson(result);
       } else if (response.statusCode == HttpStatus.internalServerError) {
         throw const InternalServerFailure();
       } else {

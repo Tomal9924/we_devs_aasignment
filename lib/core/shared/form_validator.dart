@@ -20,12 +20,12 @@ class FormValidator {
     switch (type) {
       case FormType.email:
         isValid = controller.text.isNotEmpty;
-        validationMessage = (isValid ? null : "*email is required")!;
+        validationMessage = (isValid ? null : "*email is required");
         break;
       case FormType.password:
         isValid = controller.text.isNotEmpty;
         validationMessage =
-            (validationMessage = (isValid ? null : "*password is required")!);
+            (validationMessage = (isValid ? null : "*password is required"));
         break;
     }
   }

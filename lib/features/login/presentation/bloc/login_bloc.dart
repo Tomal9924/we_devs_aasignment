@@ -1,6 +1,8 @@
 import 'package:dokan/core/shared/shared.dart';
 import 'package:dokan/features/login/domain/usecases/usecase.dart';
 
+import '../../data/model/user.dart';
+
 part 'login_event.dart';
 part 'login_state.dart';
 
@@ -16,8 +18,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       result.fold((failure) {
         emit(LoginError(message: failure));
-      }, (r) {
-        emit(const LoginSuccess());
+      }, (user) {
+        emit(LoginSuccess(user: user));
       });
     });
   }

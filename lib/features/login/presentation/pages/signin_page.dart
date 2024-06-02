@@ -1,5 +1,6 @@
 import 'package:dokan/core/shared/extensions/theme.dart';
 import 'package:dokan/features/login/presentation/bloc/login_bloc.dart';
+import 'package:dokan/features/login/presentation/bloc/user/bloc/user_bloc.dart';
 
 import '../../../../core/shared/enums/enum.dart';
 import '../../../../core/shared/form_validator.dart';
@@ -165,7 +166,15 @@ class _SignInPageState extends State<SignInPage> {
                 SizedBox(
                   width: double.infinity,
                   height: 61.h,
-                  child: BlocBuilder<LoginBloc, LoginState>(
+                  child: BlocConsumer<LoginBloc, LoginState>(
+                    listener: (context, state) {
+                      if (state is LoginSuccess) {
+                        final user = state.user;
+                        BlocProvider.of<UserBloc>(context).add(
+                          SaveUser(user: user),
+                        );
+                      }
+                    },
                     builder: (context, state) {
                       if (state is LoginLoading) {
                         return ElevatedButton(
@@ -181,7 +190,21 @@ class _SignInPageState extends State<SignInPage> {
                         );
                       } else if (state is LoginError) {
                         return ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              emailValidator.validate();
+                              passwordValidator.validate();
+                            });
+                            if (emailValidator.isValid &&
+                                passwordValidator.isValid) {
+                              context.read<LoginBloc>().add(
+                                    Login(
+                                      email: _emailController.text,
+                                      password: _passwordController.text,
+                                    ),
+                                  );
+                            }
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: theme.buttonColor,
                           ),
@@ -263,13 +286,13 @@ class _SignInPageState extends State<SignInPage> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Already have an account?   ',
+                        text: "Don't have an account?  ",
                         style: context
                             .textStyle17Medium(color: theme.textSecondary)
                             .copyWith(height: 1.2),
                       ),
                       TextSpan(
-                        text: 'Login',
+                        text: 'Sign Up',
                         style: context
                             .textStyle17Medium(color: theme.blue)
                             .copyWith(height: 1.2, fontWeight: FontWeight.bold),
