@@ -15,10 +15,13 @@ class SignInRemoteDataSourceImpl extends SignInRemoteDataSource {
     final String? password,
   }) async {
     try {
+      Map<String, dynamic> body = {
+        "username": email ?? "",
+        "password": password ?? "",
+      };
       final response = await client.post(
-        ApiConstants.url(
-          api: "${ApiConstants.login}?username=$email&password=$password",
-        ),
+        ApiConstants.url(api: ApiConstants.login),
+        body: body,
       );
 
       if (response.statusCode == HttpStatus.ok) {
