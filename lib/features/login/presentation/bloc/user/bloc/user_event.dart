@@ -6,7 +6,9 @@ sealed class UserEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-class Logout extends UserEvent{}
+class Logout extends UserEvent{
+  const Logout();
+}
 class SaveUser extends UserEvent{
   final User user;
   const SaveUser({required this.user});

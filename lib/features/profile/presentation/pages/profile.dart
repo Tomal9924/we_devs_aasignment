@@ -1,4 +1,5 @@
 import 'package:dokan/core/shared/extensions/theme.dart';
+import 'package:dokan/features/login/presentation/pages/signin_page.dart';
 import 'package:expandable/expandable.dart';
 
 import '../../../../core/shared/shared.dart';
@@ -15,14 +16,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  @override
-  void initState() {
-    super.initState();
-    final user = BlocProvider.of<UserBloc>(context).state.user;
-    BlocProvider.of<ProfileBloc>(context).add(
-      Fetch(token: user?.token ?? ""),
-    );
-  }
+  late ExpandableController _controller;
 
   final _emailController = TextEditingController();
   final _firstNameController = TextEditingController();
@@ -30,6 +24,20 @@ class _ProfilePageState extends State<ProfilePage> {
   final _streetController = TextEditingController();
   final _apartmentController = TextEditingController();
   final _zipController = TextEditingController();
+
+  bool isFirstNameValid = false;
+  bool isLastNameValid = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = ExpandableController();
+    final user = BlocProvider.of<UserBloc>(context).state.user;
+    BlocProvider.of<ProfileBloc>(context).add(
+      Fetch(token: user?.token ?? ""),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeBloc, ThemeState>(
@@ -47,7 +55,9 @@ class _ProfilePageState extends State<ProfilePage> {
           builder: (context, state) {
             if (state is ProfileLoading) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Color(0xff222455),
+                ),
               );
             } else if (state is ProfileLoaded) {
               final localProfile = state.profile;
@@ -55,39 +65,47 @@ class _ProfilePageState extends State<ProfilePage> {
                 backgroundColor: theme.backgroundColor,
                 appBar: AppBar(
                   backgroundColor: theme.backgroundColor,
+                  centerTitle: true,
+                  title: Text(
+                    "My account",
+                    textAlign: TextAlign.center,
+                    style: context.textStyle20Medium(
+                      color: const Color(0xff222455),
+                    ),
+                  ),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.logout_outlined),
+                      color: theme.errorColor,
+                      onPressed: () {
+                        BlocProvider.of<UserBloc>(context).add(const Logout());
+                        context.go(SignInPage.path);
+                      },
+                    ),
+                  ],
                 ),
                 body: ListView(
                   shrinkWrap: true,
                   padding: const EdgeInsets.all(16),
                   physics: const ScrollPhysics(),
                   children: [
-                    Text(
-                      "My account",
-                      textAlign: TextAlign.center,
-                      style: context.textStyle20Medium(
-                        color: const Color(0xff222455),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 48,
-                    ),
-                    CircleAvatar(
-                      minRadius: 48,
-                      child: PhysicalModel(
-                        color: theme.white,
+                    Container(
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        color: Colors.transparent,
                         shape: BoxShape.circle,
-                        elevation: 4,
-                        child: CachedNetworkImage(
-                          width: context.photoWidth,
-                          height: context.photoHeight,
-                          imageUrl: "context.currentUser?.photo ?? " "",
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                          errorWidget: (context, url, error) => Center(
-                            child: Image.asset(
-                              "icons/person.png",
-                              color: theme.textSecondary,
-                            ),
+                      ),
+                      child: CachedNetworkImage(
+                        width: context.photoWidth,
+                        height: context.photoHeight,
+                        imageUrl:
+                            "https://s3-alpha-sig.figma.com/img/ef25/997e/d5125e183d6c4f0e7aaa20f9bfc538e0?Expires=1718582400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OCioEZifKe7mwt4ZXMzm3QrlE2stIuDTBRRfWbyr-4WDtoym4FPemM6~kFG0tVjamZClClfQmVdIx8lkApynxiiO8Ysx3xh97~rmTsE96Rvrlv2CjpkbZkL6VPAnJUeQ8XnDNgSyDTfO4~zedL~q9Ehc1K1mu3gt21xHKohFEClEb-02QnL9de2ssAKs0PjHP3y1K5~wAu0EjjyfkGPYPxL71WDjppg8Z92fmEmSqW2xc-qZqQcCRvuIv~I7BULwkOCMpcuevez2DP~~4DLkEVCa8g7Z9L3kPcP4ZmWhBUZb51pkeaCckdhbGKtj917-uIHstPZWarKObzStwgxeaA__",
+                        fit: BoxFit.contain,
+                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => Center(
+                          child: Image.asset(
+                            "icons/person.png",
+                            color: theme.textSecondary,
                           ),
                         ),
                       ),
@@ -125,7 +143,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const SizedBox(
+                              height: 8,
+                            ),
                             ExpandablePanel(
+                              controller: _controller,
                               theme: ExpandableThemeData(
                                 iconColor: theme.iconColor,
                                 expandIcon: Icons.arrow_forward_ios_outlined,
@@ -158,13 +180,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                       fillColor: theme.white,
                                       filled: true,
                                       border: OutlineInputBorder(
-                                          borderSide: BorderSide(width: .5, color: theme.iconColor),
+                                          borderSide: BorderSide(width: .5, color: theme.border),
+                                          borderRadius: BorderRadius.circular(16)),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(width: .5, color: theme.border),
                                           borderRadius: BorderRadius.circular(16)),
                                       prefixIcon: Icon(Icons.person, color: theme.textSecondary),
                                       contentPadding: const EdgeInsets.all(16),
                                       hintText: "email",
-                                      hintStyle: TextStyles.body(context: context, color: theme.textSecondary),
-                                      helperStyle: TextStyles.caption(context: context, color: theme.errorColor),
+                                      hintStyle: TextStyles.body(
+                                        context: context,
+                                        color: theme.textSecondary,
+                                      ),
+                                      helperStyle: TextStyles.caption(
+                                        context: context,
+                                        color: theme.errorColor,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(
@@ -185,12 +216,31 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                     cursorColor: theme.textSecondary,
                                     textInputAction: TextInputAction.next,
-                                    onChanged: (value) {},
+                                    onChanged: (value) {
+                                      if (value.isNotEmpty) {
+                                        setState(() {
+                                          isFirstNameValid = true;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          isFirstNameValid = false;
+                                        });
+                                      }
+                                    },
                                     decoration: InputDecoration(
                                       fillColor: theme.white,
                                       filled: true,
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(width: .5, color: theme.iconColor),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: .5, color: isFirstNameValid ? theme.successColor : theme.errorColor),
+                                          borderRadius: BorderRadius.circular(16)),
+                                      errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: .5, color: isFirstNameValid ? theme.iconColor : theme.errorColor),
+                                          borderRadius: BorderRadius.circular(16)),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: .5, color: isFirstNameValid ? theme.successColor : theme.errorColor),
                                           borderRadius: BorderRadius.circular(16)),
                                       prefixIcon: Icon(Icons.person, color: theme.textSecondary),
                                       contentPadding: const EdgeInsets.all(16),
@@ -217,14 +267,36 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                     cursorColor: theme.textSecondary,
                                     textInputAction: TextInputAction.next,
-                                    onChanged: (value) {},
+                                    onChanged: (value) {
+                                      if (value.isNotEmpty) {
+                                        setState(() {
+                                          isLastNameValid = true;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          isLastNameValid = false;
+                                        });
+                                      }
+                                    },
                                     decoration: InputDecoration(
                                       fillColor: theme.white,
                                       filled: true,
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(width: .5, color: theme.iconColor),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: .5, color: isLastNameValid ? theme.successColor : theme.errorColor),
                                           borderRadius: BorderRadius.circular(16)),
-                                      prefixIcon: Icon(Icons.person, color: theme.textSecondary),
+                                      errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: .5, color: isLastNameValid ? theme.iconColor : theme.errorColor),
+                                          borderRadius: BorderRadius.circular(16)),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: .5, color: isLastNameValid ? theme.successColor : theme.errorColor),
+                                          borderRadius: BorderRadius.circular(16)),
+                                      prefixIcon: Icon(
+                                        Icons.person,
+                                        color: theme.textSecondary,
+                                      ),
                                       contentPadding: const EdgeInsets.all(16),
                                       hintText: "last name",
                                       hintStyle: TextStyles.body(context: context, color: theme.textSecondary),
@@ -253,8 +325,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     decoration: InputDecoration(
                                       fillColor: theme.white,
                                       filled: true,
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(width: .5, color: theme.iconColor),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(width: .5, color: theme.border),
                                           borderRadius: BorderRadius.circular(16)),
                                       prefixIcon: Icon(Icons.person, color: theme.textSecondary),
                                       contentPadding: const EdgeInsets.all(16),
@@ -285,8 +357,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     decoration: InputDecoration(
                                       fillColor: theme.white,
                                       filled: true,
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide(width: .5, color: theme.iconColor),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(width: .5, color: theme.border),
                                           borderRadius: BorderRadius.circular(16)),
                                       prefixIcon: Icon(Icons.person, color: theme.textSecondary),
                                       contentPadding: const EdgeInsets.all(16),
@@ -306,7 +378,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Row(
                                     children: [
                                       Expanded(
-                                        flex: 1,
+                                        flex: 2,
                                         child: TextFormField(
                                           autovalidateMode: AutovalidateMode.onUserInteraction,
                                           controller: _zipController,
@@ -321,8 +393,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                           decoration: InputDecoration(
                                             fillColor: theme.white,
                                             filled: true,
-                                            border: OutlineInputBorder(
-                                                borderSide: BorderSide(width: .5, color: theme.iconColor),
+                                            enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(width: .5, color: theme.border),
                                                 borderRadius: BorderRadius.circular(16)),
                                             prefixIcon: Icon(Icons.person, color: theme.textSecondary),
                                             contentPadding: const EdgeInsets.all(16),
@@ -351,7 +423,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                           ),
                                           child: TextButton(
                                             style: TextButton.styleFrom(),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              context.pop();
+                                            },
                                             child: Text(
                                               "Cancel",
                                               style: context.textStyle17Medium(color: theme.textPrimary),
@@ -364,7 +438,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                       Expanded(
                                         flex: 1,
-                                        child: BlocBuilder<UpdateBloc, UpdateState>(
+                                        child: BlocConsumer<UpdateBloc, UpdateState>(
+                                          listener: (context, state) {
+                                            if (state is UpdateLoaded) {
+                                              _controller.dispose();
+                                            }
+                                          },
                                           builder: (context, state) {
                                             if (state is UpdateLoading) {
                                               return const Center(
@@ -386,7 +465,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   style: context.textStyle17Medium(color: theme.backgroundColor),
                                                 ),
                                               );
-                                            } else if(state is UpdateError){
+                                            } else if (state is UpdateError) {
                                               return ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
                                                   shape: RoundedRectangleBorder(
@@ -397,8 +476,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   minimumSize: const Size(0, 48),
                                                 ),
                                                 onPressed: () {
-                                                  if (_firstNameController.text.isNotEmpty &&
-                                                      _lastNameController.text.isNotEmpty) {
+                                                  if (isFirstNameValid && isLastNameValid) {
                                                     context.read<UpdateBloc>().add(
                                                           Update(
                                                             id: localProfile.id.toString(),
@@ -414,7 +492,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   style: context.textStyle17Medium(color: theme.backgroundColor),
                                                 ),
                                               );
-                                            }else {
+                                            } else {
                                               return ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
                                                   shape: RoundedRectangleBorder(
@@ -425,8 +503,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   minimumSize: const Size(0, 48),
                                                 ),
                                                 onPressed: () {
-                                                  if (_firstNameController.text.isNotEmpty &&
-                                                      _lastNameController.text.isNotEmpty) {
+                                                  if (isFirstNameValid && isLastNameValid) {
                                                     context.read<UpdateBloc>().add(
                                                           Update(
                                                             id: localProfile.id.toString(),
@@ -470,11 +547,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             const SizedBox(
-                              height: 16,
+                              height: 8,
                             ),
                             const Divider(
                               color: Color(0xFF7C8592),
                               thickness: .5,
+                            ),
+                            const SizedBox(
+                              height: 8,
                             ),
                             ExpandablePanel(
                               theme: ExpandableThemeData(
@@ -502,11 +582,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             const SizedBox(
-                              height: 16,
+                              height: 8,
                             ),
                             const Divider(
                               color: Color(0xFF7C8592),
                               thickness: .5,
+                            ),
+                            const SizedBox(
+                              height: 8,
                             ),
                             ExpandablePanel(
                               theme: ExpandableThemeData(
@@ -534,11 +617,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             const SizedBox(
-                              height: 16,
+                              height: 8,
                             ),
                             const Divider(
                               color: Color(0xFF7C8592),
                               thickness: .5,
+                            ),
+                            const SizedBox(
+                              height: 8,
                             ),
                             ExpandablePanel(
                               theme: ExpandableThemeData(
@@ -552,7 +638,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               expanded: Container(),
                               header: Row(
                                 children: [
-                                  const Icon(Icons.lock_outline_rounded, color: Color(0xFF7C8592)),
+                                  const Icon(Icons.favorite_border_outlined, color: Color(0xFF7C8592)),
                                   const SizedBox(
                                     width: 16,
                                   ),
@@ -566,7 +652,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                       TextSpan(
                                         text: " (00)",
-                                        style: context.textStyle17Medium(
+                                        style: context.textStyle14Medium(
                                           color: theme.iconColor,
                                         ),
                                       ),
