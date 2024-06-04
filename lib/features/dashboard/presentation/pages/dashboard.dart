@@ -3,6 +3,7 @@ import 'package:dokan/core/shared/extensions/theme.dart';
 
 import '../../../../core/shared/shared.dart';
 import '../../../profile/presentation/pages/profile.dart';
+import '../widgets/home_page.dart';
 
 class DashboardPage extends StatefulWidget {
   static const String path = '/dashboard';
@@ -29,7 +30,7 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     super.initState();
     fragments = [
-      Container(),
+      const HomePage(),
       Container(),
       Container(),
       const ProfilePage(),

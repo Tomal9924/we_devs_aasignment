@@ -35,7 +35,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 padding: const EdgeInsets.all(16),
                 physics: const ScrollPhysics(),
                 children: [
-                  const Spacer(),
                   Text(
                     "My account",
                     textAlign: TextAlign.center,
@@ -333,6 +332,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                                 const SizedBox(height: 16),
                                 Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Expanded(
                                       flex: 1,
@@ -418,10 +418,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               collapseIcon: Icons.keyboard_arrow_down_sharp,
                             ),
                             collapsed: Container(),
-                            expanded: ListView(
-                              shrinkWrap: true,
-                              children: [],
-                            ),
+                            expanded: Container(),
                             header: Row(
                               children: [
                                 const Icon(Icons.notifications_on_outlined,
@@ -454,10 +451,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               collapseIcon: Icons.keyboard_arrow_down_sharp,
                             ),
                             collapsed: Container(),
-                            expanded: ListView(
-                              shrinkWrap: true,
-                              children: [],
-                            ),
+                            expanded: Container(),
                             header: Row(
                               children: [
                                 const Icon(Icons.lock_outline_rounded,
@@ -521,7 +515,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                  const Spacer(),
                 ],
               ),
             );
