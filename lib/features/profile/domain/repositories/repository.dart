@@ -8,6 +8,7 @@ abstract class ProfileRepository {
     required String firstName,
     required String lastName,
     required String id,
+    required String token,
   });
   Future<Either<Failure, ProfileModel>> fetch({
     required String token,

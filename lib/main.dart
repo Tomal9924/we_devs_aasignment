@@ -1,6 +1,6 @@
 import 'package:dokan/core/shared/extensions/theme.dart';
 import 'package:dokan/features/login/presentation/bloc/user/bloc/user_bloc.dart';
-import 'package:dokan/features/profile/presentation/bloc/bloc/local_profile_bloc.dart';
+import 'package:dokan/features/profile/presentation/bloc/local_profile_bloc.dart';
 
 import 'core/shared/shared.dart';
 

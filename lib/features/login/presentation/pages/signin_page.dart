@@ -1,7 +1,6 @@
 import 'package:dokan/core/shared/extensions/theme.dart';
 import 'package:dokan/features/login/presentation/bloc/login_bloc.dart';
 import 'package:dokan/features/login/presentation/bloc/user/bloc/user_bloc.dart';
-import 'package:dokan/features/profile/presentation/bloc/profile_bloc.dart';
 
 import '../../../../core/shared/enums/enum.dart';
 import '../../../../core/shared/form_validator.dart';

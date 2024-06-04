@@ -11,11 +11,13 @@ class UpdateProfileUseCase {
     required String firstName,
     required String lastName,
     required String id,
+    required String token,
   }) async {
     return await repository.update(
       firstName: firstName,
       lastName: lastName,
       id: id,
+      token: token,
     );
   }
 }

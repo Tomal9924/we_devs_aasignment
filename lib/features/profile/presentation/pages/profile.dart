@@ -3,8 +3,9 @@ import 'package:expandable/expandable.dart';
 
 import '../../../../core/shared/shared.dart';
 import '../../../login/presentation/bloc/user/bloc/user_bloc.dart';
-import '../bloc/bloc/local_profile_bloc.dart';
+import '../bloc/local_profile_bloc.dart';
 import '../bloc/profile_bloc.dart';
+import '../bloc/update_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -24,7 +25,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   final _emailController = TextEditingController();
-  final _nameController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
   final _streetController = TextEditingController();
   final _apartmentController = TextEditingController();
   final _zipController = TextEditingController();
@@ -38,9 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
             if (state is ProfileLoaded) {
               final profile = state.profile;
               BlocProvider.of<LocalProfileBloc>(context).add(
-                SaveLocalProfile(
-                  profileModel: profile,
-                ),
+                SaveLocalProfile(profileModel: profile),
               );
             }
           },
@@ -171,13 +171,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                     height: 16,
                                   ),
                                   Text(
-                                    "Full name",
+                                    "First name",
                                     style: context.textStyle14Medium(color: theme.iconColor),
                                   ),
                                   const SizedBox(height: 8),
                                   TextFormField(
                                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                                    controller: _nameController,
+                                    controller: _firstNameController,
                                     keyboardType: TextInputType.emailAddress,
                                     style: TextStyles.body(
                                       context: context,
@@ -194,7 +194,39 @@ class _ProfilePageState extends State<ProfilePage> {
                                           borderRadius: BorderRadius.circular(16)),
                                       prefixIcon: Icon(Icons.person, color: theme.textSecondary),
                                       contentPadding: const EdgeInsets.all(16),
-                                      hintText: "full name",
+                                      hintText: "first name",
+                                      hintStyle: TextStyles.body(context: context, color: theme.textSecondary),
+                                      helperStyle: TextStyles.caption(context: context, color: theme.errorColor),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
+                                    "Last name",
+                                    style: context.textStyle14Medium(color: theme.iconColor),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  TextFormField(
+                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    controller: _lastNameController,
+                                    keyboardType: TextInputType.emailAddress,
+                                    style: TextStyles.body(
+                                      context: context,
+                                      color: theme.textPrimary,
+                                    ),
+                                    cursorColor: theme.textSecondary,
+                                    textInputAction: TextInputAction.next,
+                                    onChanged: (value) {},
+                                    decoration: InputDecoration(
+                                      fillColor: theme.white,
+                                      filled: true,
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide(width: .5, color: theme.iconColor),
+                                          borderRadius: BorderRadius.circular(16)),
+                                      prefixIcon: Icon(Icons.person, color: theme.textSecondary),
+                                      contentPadding: const EdgeInsets.all(16),
+                                      hintText: "last name",
                                       hintStyle: TextStyles.body(context: context, color: theme.textSecondary),
                                       helperStyle: TextStyles.caption(context: context, color: theme.errorColor),
                                     ),
@@ -332,20 +364,86 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                       Expanded(
                                         flex: 1,
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(8),
-                                            ),
-                                            backgroundColor: const Color(0xFF1ABC9C),
-                                            padding: const EdgeInsets.symmetric(vertical: 16),
-                                            minimumSize: const Size(0, 48),
-                                          ),
-                                          onPressed: () {},
-                                          child: Text(
-                                            "Save",
-                                            style: context.textStyle17Medium(color: theme.backgroundColor),
-                                          ),
+                                        child: BlocBuilder<UpdateBloc, UpdateState>(
+                                          builder: (context, state) {
+                                            if (state is UpdateLoading) {
+                                              return const Center(
+                                                child: CircularProgressIndicator(),
+                                              );
+                                            } else if (state is UpdateLoaded) {
+                                              return ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(8),
+                                                  ),
+                                                  backgroundColor: const Color(0xFF1ABC9C),
+                                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                                  minimumSize: const Size(0, 48),
+                                                ),
+                                                onPressed: () {},
+                                                child: Text(
+                                                  "Updated",
+                                                  style: context.textStyle17Medium(color: theme.backgroundColor),
+                                                ),
+                                              );
+                                            } else if(state is UpdateError){
+                                              return ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(8),
+                                                  ),
+                                                  backgroundColor: const Color(0xFF1ABC9C),
+                                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                                  minimumSize: const Size(0, 48),
+                                                ),
+                                                onPressed: () {
+                                                  if (_firstNameController.text.isNotEmpty &&
+                                                      _lastNameController.text.isNotEmpty) {
+                                                    context.read<UpdateBloc>().add(
+                                                          Update(
+                                                            id: localProfile.id.toString(),
+                                                            firstName: _firstNameController.text,
+                                                            lastName: _lastNameController.text,
+                                                            token: BlocProvider.of<UserBloc>(context).state.user?.token ?? "",
+                                                          ),
+                                                        );
+                                                  }
+                                                },
+                                                child: Text(
+                                                  "Try again!",
+                                                  style: context.textStyle17Medium(color: theme.backgroundColor),
+                                                ),
+                                              );
+                                            }else {
+                                              return ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(8),
+                                                  ),
+                                                  backgroundColor: const Color(0xFF1ABC9C),
+                                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                                  minimumSize: const Size(0, 48),
+                                                ),
+                                                onPressed: () {
+                                                  if (_firstNameController.text.isNotEmpty &&
+                                                      _lastNameController.text.isNotEmpty) {
+                                                    context.read<UpdateBloc>().add(
+                                                          Update(
+                                                            id: localProfile.id.toString(),
+                                                            firstName: _firstNameController.text,
+                                                            lastName: _lastNameController.text,
+                                                            token: BlocProvider.of<UserBloc>(context).state.user?.token ?? "",
+                                                          ),
+                                                        );
+                                                  }
+                                                },
+                                                child: Text(
+                                                  "Save",
+                                                  style: context.textStyle17Medium(color: theme.backgroundColor),
+                                                ),
+                                              );
+                                            }
+                                          },
                                         ),
                                       )
                                     ],

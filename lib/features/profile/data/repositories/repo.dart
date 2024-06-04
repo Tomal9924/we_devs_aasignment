@@ -14,12 +14,14 @@ class ProfileRepositoryImpl extends ProfileRepository {
     required String firstName,
     required String lastName,
     required String id,
+    required String token,
   }) async {
     try {
       final result = await remoteDataSource.update(
         firstName: firstName,
         lastName: lastName,
         id: id,
+        token: token,
       );
       return Right(result);
     } on Failure catch (e) {

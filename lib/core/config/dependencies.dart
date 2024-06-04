@@ -91,11 +91,21 @@ Future<void> get _profile async {
     () => LocalProfileBloc(),
   );
   sl.registerFactory(
+    () => UpdateBloc(
+      useCase: sl(),
+    ),
+  );
+  sl.registerFactory(
     () => ProfileBloc(profileUseCase: sl()),
   );
 
   sl.registerLazySingleton<ProfileUseCase>(
     () => ProfileUseCase(
+      repository: sl(),
+    ),
+  );
+  sl.registerLazySingleton<UpdateProfileUseCase>(
+    () => UpdateProfileUseCase(
       repository: sl(),
     ),
   );
