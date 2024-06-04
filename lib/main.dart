@@ -1,5 +1,6 @@
 import 'package:dokan/core/shared/extensions/theme.dart';
 import 'package:dokan/features/login/presentation/bloc/user/bloc/user_bloc.dart';
+import 'package:dokan/features/profile/presentation/bloc/local_profile_bloc.dart';
 
 import 'core/shared/shared.dart';
 
@@ -11,6 +12,7 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => sl<ThemeBloc>()),
         BlocProvider(create: (_) => sl<UserBloc>()),
+        BlocProvider(create: (_) => sl<LocalProfileBloc>()),
       ],
       child: const MainApp(),
     ),

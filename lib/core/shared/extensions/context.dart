@@ -79,7 +79,14 @@ extension BuildContextExtension on BuildContext {
 
   ThemeBloc get themeBloc => this.read<ThemeBloc>();
 
-  TextStyle textStyle20Medium({required Color color}) => GoogleFonts.rubik(
+  TextStyle textStyle20Medium({required Color color}) => GoogleFonts.lato(
+        textStyle: TextStyle(
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w600,
+          color: color,
+        ),
+      );
+  TextStyle textStyle20MediumRoboto({required Color color}) => GoogleFonts.roboto(
         textStyle: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.w600,
@@ -100,8 +107,7 @@ extension BuildContextExtension on BuildContext {
           color: color,
         ),
       );
-  TextStyle textStyle17MediumZenDots({required Color color}) =>
-      GoogleFonts.zenDots(
+  TextStyle textStyle17MediumZenDots({required Color color}) => GoogleFonts.zenDots(
         textStyle: TextStyle(
           fontSize: 17.sp,
           fontWeight: FontWeight.w600,
@@ -116,7 +122,7 @@ extension BuildContextExtension on BuildContext {
         ),
       );
 
-  TextStyle textStyle12Medium({required Color color}) => GoogleFonts.roboto(
+  TextStyle textStyle12Medium({required Color color}) => GoogleFonts.lato(
         textStyle: TextStyle(
           fontSize: 12.sp,
           fontWeight: FontWeight.w600,
@@ -154,8 +160,8 @@ extension BuildContextExtension on BuildContext {
   double get radius12 => 12.r;
   double get radius16 => 16.r;
   double get radius52 => 52.r;
-  double get photoWidth => 121.w;
-  double get photoHeight => 121.h;
+  double get photoWidth => 136.w;
+  double get photoHeight => 136.h;
 
   double get horizontalMargin1 => 1.w;
   double get horizontalMargin2 => 2.w;

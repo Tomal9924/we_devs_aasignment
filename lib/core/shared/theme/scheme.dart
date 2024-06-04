@@ -8,6 +8,8 @@ class ThemeScheme {
   final Color errorColor;
   final Color textPrimary;
   final Color textSecondary;
+  final Color border;
+  final Color iconColor;
   final Color white;
   final Color blue;
   final Color successColor;
@@ -23,6 +25,8 @@ class ThemeScheme {
     required this.textSecondary,
     required this.white,
     required this.successColor,
+    required this.iconColor,
+    required this.border,
   });
 
   factory ThemeScheme.find({
@@ -31,6 +35,7 @@ class ThemeScheme {
     final theme = ThemeScheme(
       backgroundColor: const Color(0xFFF8F8F8),
       backgroundSecondary: const Color.fromARGB(57, 223, 236, 215),
+      border: const Color(0xFF263238),
       textPrimary: Colors.black,
       shimmerColor: const Color(0xFFCCD0D3),
       errorColor: const Color.fromARGB(255, 255, 40, 40),
@@ -38,6 +43,7 @@ class ThemeScheme {
       blue: const Color(0xFF2893E3),
       textSecondary: const Color(0xFFA4A9AF),
       white: const Color(0xFFFFFFFF),
+      iconColor: const Color(0xFF899AA2),
       successColor: Colors.green,
     );
 
