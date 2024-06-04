@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:dokan/core/shared/extensions/theme.dart';
 
 import '../../../../core/shared/shared.dart';
+import '../../../profile/presentation/bloc/profile_bloc.dart';
 import '../../../profile/presentation/pages/profile.dart';
 import '../widgets/home_page.dart';
 
@@ -33,7 +34,10 @@ class _DashboardPageState extends State<DashboardPage> {
       const HomePage(),
       Container(),
       Container(),
-      const ProfilePage(),
+      BlocProvider(
+        create: (context) => sl<ProfileBloc>(),
+        child: const ProfilePage(),
+      ),
     ];
   }
 
@@ -61,8 +65,7 @@ class _DashboardPageState extends State<DashboardPage> {
               //params
             ),
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: AnimatedBottomNavigationBar(
             icons: iconList,
             activeIndex: currentIndex,

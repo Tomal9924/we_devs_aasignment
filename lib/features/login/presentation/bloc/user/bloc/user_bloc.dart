@@ -8,9 +8,7 @@ part 'user_state.dart';
 class UserBloc extends Bloc<UserEvent, UserState> with HydratedMixin {
   UserBloc()
       : super(
-          UserState(
-            user: null,
-          ),
+          UserState(user: null),
         ) {
     on<SaveUser>(
       (event, emit) {
