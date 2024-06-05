@@ -33,43 +33,39 @@ class _InputState extends State<Input> {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, state) {
         final theme = state.scheme;
-        return PhysicalModel(
-          color: theme.backgroundColor,
-          elevation: 2,
-          borderRadius: BorderRadius.circular(16),
-          child: TextFormField(
-            controller: widget.controller,
-            keyboardType: widget.type,
-            validator: widget.validator,
-            autocorrect: false,
-            autofocus: false,
-            onChanged: (value) {
-              setState(() {
-                widget.validate = true;
-                widget.onChanged(widget.controller.text);
-              });
-            },
-            decoration: InputDecoration(
-              fillColor: theme.white,
-              hintText: widget.hint,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: BorderSide.none,
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(color: Colors.greenAccent),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(color: Colors.red),
-              ),
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              prefixIcon: Icon(
-                widget.icon,
-                size: 20.sp,
-              ),
+        return TextFormField(
+          controller: widget.controller,
+          keyboardType: widget.type,
+          validator: widget.validator,
+          autocorrect: false,
+          autofocus: false,
+          onChanged: (value) {
+            setState(() {
+              widget.validate = true;
+              widget.onChanged(widget.controller.text);
+            });
+          },
+          decoration: InputDecoration(
+            fillColor: theme.white,
+            hintText: widget.hint,
+            hintStyle: context.textStyle10Regular(color: theme.textSecondary),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(color: Colors.greenAccent),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: const BorderSide(color: Colors.red),
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            prefixIcon: Icon(
+              widget.icon,
+              size: 20.sp,
             ),
           ),
         );

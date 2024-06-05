@@ -209,22 +209,28 @@ class _SignUpPageState extends State<SignUpPage> {
                   ],
                 ),
                 const SizedBox(height: 52),
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Already have an account?   ',
-                        style: context
-                            .textStyle17Medium(color: theme.textSecondary)
-                            .copyWith(height: 1.2),
-                      ),
-                      TextSpan(
-                        text: 'Login',
-                        style: context
-                            .textStyle17Medium(color: theme.blue)
-                            .copyWith(height: 1.2, fontWeight: FontWeight.bold),
-                      )
-                    ],
+                InkWell(
+                  onTap: () {
+                    context.go(SignInPage.path);
+                  },
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Already have an account?   ',
+                          style: context
+                              .textStyle14Medium(color: theme.textSecondary)
+                              .copyWith(height: 1.2),
+                        ),
+                        TextSpan(
+                          text: 'Login',
+                          style: context
+                              .textStyle14Medium(color: theme.blue)
+                              .copyWith(
+                                  height: 1.2, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],

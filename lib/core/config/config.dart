@@ -1,23 +1,7 @@
 import 'package:dokan/core/shared/extensions/theme.dart';
-import 'package:dokan/features/login/domain/repositories/repository.dart';
-import 'package:dokan/features/profile/data/repositories/repo.dart';
-import 'package:dokan/features/profile/domain/repositories/repository.dart';
-import 'package:dokan/features/profile/domain/usecases/update.dart';
-import 'package:dokan/features/profile/presentation/bloc/local_profile_bloc.dart';
-import 'package:dokan/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:dokan/features/profile/presentation/bloc/update_bloc.dart';
-
-import '../../features/login/data/datasources/remote.dart';
-import '../../features/login/data/datasources/remote_impl.dart';
-import '../../features/login/data/repositories/repo.dart';
-import '../../features/login/domain/usecases/usecase.dart';
-import '../../features/login/presentation/bloc/login_bloc.dart';
-import '../../features/login/presentation/bloc/user/bloc/user_bloc.dart';
-import '../../features/profile/data/datasources/remote.dart';
-import '../../features/profile/data/datasources/remote_impl.dart';
-import '../../features/profile/domain/usecases/profile.dart';
+import '../../features/login/login.dart';
+import '../../features/profile/profile.dart';
 import '../../features/signup/signup.dart';
-import '../shared/shared.dart';
 
 part 'dependencies.dart';
 part 'network_certificates.dart';
