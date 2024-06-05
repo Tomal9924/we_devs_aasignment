@@ -416,20 +416,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                     children: [
                                       Expanded(
                                         flex: 1,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(8),
-                                            border: Border.all(color: theme.iconColor, width: 1),
-                                          ),
-                                          child: TextButton(
-                                            style: TextButton.styleFrom(),
-                                            onPressed: () {
-                                              context.pop();
-                                            },
-                                            child: Text(
-                                              "Cancel",
-                                              style: context.textStyle17Medium(color: theme.textPrimary),
+                                        child: TextButton(
+                                          style: TextButton.styleFrom(
+                                            minimumSize: const Size(0, 61),
+                                            backgroundColor: theme.iconColor.withAlpha(50),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(8),
                                             ),
+                                            
+                                          ),
+                                          onPressed: () {
+                                            context.pop();
+                                          },
+                                          child: Text(
+                                            "Cancel",
+                                            style: context.textStyle17Medium(color: theme.textPrimary),
                                           ),
                                         ),
                                       ),

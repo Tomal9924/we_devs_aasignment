@@ -41,7 +41,7 @@ class _SignInPageState extends State<SignInPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset("icons/logo.png",
+                Image.asset("icons/splash.png",
                     fit: BoxFit.contain, width: 144, height: 144),
                 const SizedBox(height: 48),
                 Text(
