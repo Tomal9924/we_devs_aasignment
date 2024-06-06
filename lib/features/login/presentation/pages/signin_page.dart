@@ -1,5 +1,6 @@
 import 'package:dokan/core/shared/extensions/theme.dart';
 
+import '../../../../core/shared/task_notifier.dart';
 import '../../login.dart';
 
 class SignInPage extends StatefulWidget {
@@ -171,6 +172,9 @@ class _SignInPageState extends State<SignInPage> {
                         );
 
                         context.go(DashboardPage.path);
+                      } else if (state is LoginError) {
+                        TaskNotifier.instance.error(context,
+                            message: "Incorrect username or password.");
                       }
                     },
                     builder: (context, state) {

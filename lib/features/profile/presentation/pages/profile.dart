@@ -101,7 +101,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         imageUrl:
                             "https://s3-alpha-sig.figma.com/img/ef25/997e/d5125e183d6c4f0e7aaa20f9bfc538e0?Expires=1718582400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OCioEZifKe7mwt4ZXMzm3QrlE2stIuDTBRRfWbyr-4WDtoym4FPemM6~kFG0tVjamZClClfQmVdIx8lkApynxiiO8Ysx3xh97~rmTsE96Rvrlv2CjpkbZkL6VPAnJUeQ8XnDNgSyDTfO4~zedL~q9Ehc1K1mu3gt21xHKohFEClEb-02QnL9de2ssAKs0PjHP3y1K5~wAu0EjjyfkGPYPxL71WDjppg8Z92fmEmSqW2xc-qZqQcCRvuIv~I7BULwkOCMpcuevez2DP~~4DLkEVCa8g7Z9L3kPcP4ZmWhBUZb51pkeaCckdhbGKtj917-uIHstPZWarKObzStwgxeaA__",
                         fit: BoxFit.contain,
-                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                        placeholder: (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
                         errorWidget: (context, url, error) => Center(
                           child: Image.asset(
                             "icons/person.png",
@@ -126,7 +127,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 8,
                     ),
                     Text(
-                      BlocProvider.of<UserBloc>(context).state.user?.email ?? "",
+                      BlocProvider.of<UserBloc>(context).state.user?.email ??
+                          "",
                       textAlign: TextAlign.center,
                       style: context.textStyle12Medium(
                         color: theme.textSecondary,
@@ -153,7 +155,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 expandIcon: Icons.arrow_forward_ios_outlined,
                                 sizeCurve: Curves.fastOutSlowIn,
                                 iconSize: 18,
-                                collapseIcon: Icons.keyboard_arrow_down_outlined,
+                                collapseIcon:
+                                    Icons.keyboard_arrow_down_outlined,
                               ),
                               collapsed: Container(),
                               expanded: Column(
@@ -162,11 +165,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   Text(
                                     "Email",
-                                    style: context.textStyle14Medium(color: theme.iconColor),
+                                    style: context.textStyle14Medium(
+                                        color: theme.iconColor),
                                   ),
                                   const SizedBox(height: 8),
                                   TextFormField(
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                     controller: _emailController,
                                     keyboardType: TextInputType.emailAddress,
                                     style: TextStyles.body(
@@ -180,12 +185,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                       fillColor: theme.white,
                                       filled: true,
                                       border: OutlineInputBorder(
-                                          borderSide: BorderSide(width: .5, color: theme.border),
-                                          borderRadius: BorderRadius.circular(16)),
+                                          borderSide: BorderSide(
+                                              width: .5, color: theme.border),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(width: .5, color: theme.border),
-                                          borderRadius: BorderRadius.circular(16)),
-                                      prefixIcon: Icon(Icons.person, color: theme.textSecondary),
+                                          borderSide: BorderSide(
+                                              width: .5, color: theme.border),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      prefixIcon: Icon(Icons.person,
+                                          color: theme.textSecondary),
                                       contentPadding: const EdgeInsets.all(16),
                                       hintText: "email",
                                       hintStyle: TextStyles.body(
@@ -203,11 +213,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   Text(
                                     "First name",
-                                    style: context.textStyle14Medium(color: theme.iconColor),
+                                    style: context.textStyle14Medium(
+                                        color: theme.iconColor),
                                   ),
                                   const SizedBox(height: 8),
                                   TextFormField(
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                     controller: _firstNameController,
                                     keyboardType: TextInputType.emailAddress,
                                     style: TextStyles.body(
@@ -232,21 +244,38 @@ class _ProfilePageState extends State<ProfilePage> {
                                       filled: true,
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              width: .5, color: isFirstNameValid ? theme.successColor : theme.errorColor),
-                                          borderRadius: BorderRadius.circular(16)),
+                                              width: .5,
+                                              color: isFirstNameValid
+                                                  ? theme.successColor
+                                                  : theme.errorColor),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       errorBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              width: .5, color: isFirstNameValid ? theme.iconColor : theme.errorColor),
-                                          borderRadius: BorderRadius.circular(16)),
+                                              width: .5,
+                                              color: isFirstNameValid
+                                                  ? theme.iconColor
+                                                  : theme.errorColor),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              width: .5, color: isFirstNameValid ? theme.successColor : theme.errorColor),
-                                          borderRadius: BorderRadius.circular(16)),
-                                      prefixIcon: Icon(Icons.person, color: theme.textSecondary),
+                                              width: .5,
+                                              color: isFirstNameValid
+                                                  ? theme.successColor
+                                                  : theme.errorColor),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      prefixIcon: Icon(Icons.person,
+                                          color: theme.textSecondary),
                                       contentPadding: const EdgeInsets.all(16),
                                       hintText: "first name",
-                                      hintStyle: TextStyles.body(context: context, color: theme.textSecondary),
-                                      helperStyle: TextStyles.caption(context: context, color: theme.errorColor),
+                                      hintStyle: TextStyles.body(
+                                          context: context,
+                                          color: theme.textSecondary),
+                                      helperStyle: TextStyles.caption(
+                                          context: context,
+                                          color: theme.errorColor),
                                     ),
                                   ),
                                   const SizedBox(
@@ -254,11 +283,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   Text(
                                     "Last name",
-                                    style: context.textStyle14Medium(color: theme.iconColor),
+                                    style: context.textStyle14Medium(
+                                        color: theme.iconColor),
                                   ),
                                   const SizedBox(height: 8),
                                   TextFormField(
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                     controller: _lastNameController,
                                     keyboardType: TextInputType.emailAddress,
                                     style: TextStyles.body(
@@ -283,24 +314,40 @@ class _ProfilePageState extends State<ProfilePage> {
                                       filled: true,
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              width: .5, color: isLastNameValid ? theme.successColor : theme.errorColor),
-                                          borderRadius: BorderRadius.circular(16)),
+                                              width: .5,
+                                              color: isLastNameValid
+                                                  ? theme.successColor
+                                                  : theme.errorColor),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       errorBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              width: .5, color: isLastNameValid ? theme.iconColor : theme.errorColor),
-                                          borderRadius: BorderRadius.circular(16)),
+                                              width: .5,
+                                              color: isLastNameValid
+                                                  ? theme.iconColor
+                                                  : theme.errorColor),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              width: .5, color: isLastNameValid ? theme.successColor : theme.errorColor),
-                                          borderRadius: BorderRadius.circular(16)),
+                                              width: .5,
+                                              color: isLastNameValid
+                                                  ? theme.successColor
+                                                  : theme.errorColor),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
                                       prefixIcon: Icon(
                                         Icons.person,
                                         color: theme.textSecondary,
                                       ),
                                       contentPadding: const EdgeInsets.all(16),
                                       hintText: "last name",
-                                      hintStyle: TextStyles.body(context: context, color: theme.textSecondary),
-                                      helperStyle: TextStyles.caption(context: context, color: theme.errorColor),
+                                      hintStyle: TextStyles.body(
+                                          context: context,
+                                          color: theme.textSecondary),
+                                      helperStyle: TextStyles.caption(
+                                          context: context,
+                                          color: theme.errorColor),
                                     ),
                                   ),
                                   const SizedBox(
@@ -308,11 +355,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   Text(
                                     "Street address",
-                                    style: context.textStyle14Medium(color: theme.iconColor),
+                                    style: context.textStyle14Medium(
+                                        color: theme.iconColor),
                                   ),
                                   const SizedBox(height: 8),
                                   TextFormField(
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                     controller: _streetController,
                                     keyboardType: TextInputType.emailAddress,
                                     style: TextStyles.body(
@@ -326,13 +375,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                       fillColor: theme.white,
                                       filled: true,
                                       enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(width: .5, color: theme.border),
-                                          borderRadius: BorderRadius.circular(16)),
-                                      prefixIcon: Icon(Icons.person, color: theme.textSecondary),
+                                          borderSide: BorderSide(
+                                              width: .5, color: theme.border),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      prefixIcon: Icon(Icons.person,
+                                          color: theme.textSecondary),
                                       contentPadding: const EdgeInsets.all(16),
                                       hintText: "street",
-                                      hintStyle: TextStyles.body(context: context, color: theme.textSecondary),
-                                      helperStyle: TextStyles.caption(context: context, color: theme.errorColor),
+                                      hintStyle: TextStyles.body(
+                                          context: context,
+                                          color: theme.textSecondary),
+                                      helperStyle: TextStyles.caption(
+                                          context: context,
+                                          color: theme.errorColor),
                                     ),
                                   ),
                                   const SizedBox(
@@ -340,11 +396,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   Text(
                                     "Apt,Suit,bldg (Optional)",
-                                    style: context.textStyle14Medium(color: theme.iconColor),
+                                    style: context.textStyle14Medium(
+                                        color: theme.iconColor),
                                   ),
                                   const SizedBox(height: 8),
                                   TextFormField(
-                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
                                     controller: _apartmentController,
                                     keyboardType: TextInputType.emailAddress,
                                     style: TextStyles.body(
@@ -358,13 +416,21 @@ class _ProfilePageState extends State<ProfilePage> {
                                       fillColor: theme.white,
                                       filled: true,
                                       enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(width: .5, color: theme.border),
-                                          borderRadius: BorderRadius.circular(16)),
-                                      prefixIcon: Icon(Icons.person, color: theme.textSecondary),
+                                          borderSide: BorderSide(
+                                              width: .5, color: theme.border),
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      prefixIcon: Icon(Icons.person,
+                                          color: theme.textSecondary),
                                       contentPadding: const EdgeInsets.all(16),
-                                      hintText: "aprtment,suit,building (optional)",
-                                      hintStyle: TextStyles.body(context: context, color: theme.textSecondary),
-                                      helperStyle: TextStyles.caption(context: context, color: theme.errorColor),
+                                      hintText:
+                                          "aprtment,suit,building (optional)",
+                                      hintStyle: TextStyles.body(
+                                          context: context,
+                                          color: theme.textSecondary),
+                                      helperStyle: TextStyles.caption(
+                                          context: context,
+                                          color: theme.errorColor),
                                     ),
                                   ),
                                   const SizedBox(
@@ -372,7 +438,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   Text(
                                     "Zip code",
-                                    style: context.textStyle14Medium(color: theme.iconColor),
+                                    style: context.textStyle14Medium(
+                                        color: theme.iconColor),
                                   ),
                                   const SizedBox(height: 8),
                                   Row(
@@ -380,9 +447,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                       Expanded(
                                         flex: 2,
                                         child: TextFormField(
-                                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                                          autovalidateMode: AutovalidateMode
+                                              .onUserInteraction,
                                           controller: _zipController,
-                                          keyboardType: TextInputType.emailAddress,
+                                          keyboardType:
+                                              TextInputType.emailAddress,
                                           style: TextStyles.body(
                                             context: context,
                                             color: theme.textPrimary,
@@ -394,13 +463,22 @@ class _ProfilePageState extends State<ProfilePage> {
                                             fillColor: theme.white,
                                             filled: true,
                                             enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(width: .5, color: theme.border),
-                                                borderRadius: BorderRadius.circular(16)),
-                                            prefixIcon: Icon(Icons.person, color: theme.textSecondary),
-                                            contentPadding: const EdgeInsets.all(16),
+                                                borderSide: BorderSide(
+                                                    width: .5,
+                                                    color: theme.border),
+                                                borderRadius:
+                                                    BorderRadius.circular(16)),
+                                            prefixIcon: Icon(Icons.person,
+                                                color: theme.textSecondary),
+                                            contentPadding:
+                                                const EdgeInsets.all(16),
                                             hintText: "zip code",
-                                            hintStyle: TextStyles.body(context: context, color: theme.textSecondary),
-                                            helperStyle: TextStyles.caption(context: context, color: theme.errorColor),
+                                            hintStyle: TextStyles.body(
+                                                context: context,
+                                                color: theme.textSecondary),
+                                            helperStyle: TextStyles.caption(
+                                                context: context,
+                                                color: theme.errorColor),
                                           ),
                                         ),
                                       ),
@@ -419,18 +497,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                         child: TextButton(
                                           style: TextButton.styleFrom(
                                             minimumSize: const Size(0, 61),
-                                            backgroundColor: theme.iconColor.withAlpha(50),
+                                            backgroundColor:
+                                                theme.iconColor.withAlpha(50),
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
                                             ),
-                                            
                                           ),
                                           onPressed: () {
                                             context.pop();
                                           },
                                           child: Text(
                                             "Cancel",
-                                            style: context.textStyle17Medium(color: theme.textPrimary),
+                                            style: context.textStyle17Medium(
+                                                color: theme.textPrimary),
                                           ),
                                         ),
                                       ),
@@ -439,7 +519,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                       Expanded(
                                         flex: 1,
-                                        child: BlocConsumer<UpdateBloc, UpdateState>(
+                                        child: BlocConsumer<UpdateBloc,
+                                            UpdateState>(
                                           listener: (context, state) {
                                             if (state is UpdateLoaded) {
                                               _controller.dispose();
@@ -448,76 +529,129 @@ class _ProfilePageState extends State<ProfilePage> {
                                           builder: (context, state) {
                                             if (state is UpdateLoading) {
                                               return const Center(
-                                                child: CircularProgressIndicator(),
+                                                child:
+                                                    CircularProgressIndicator(),
                                               );
                                             } else if (state is UpdateLoaded) {
                                               return ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
                                                   shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
                                                   ),
-                                                  backgroundColor: const Color(0xFF1ABC9C),
-                                                  padding: const EdgeInsets.symmetric(vertical: 16),
-                                                  minimumSize: const Size(0, 48),
+                                                  backgroundColor:
+                                                      const Color(0xFF1ABC9C),
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 16),
+                                                  minimumSize:
+                                                      const Size(0, 48),
                                                 ),
                                                 onPressed: () {},
                                                 child: Text(
                                                   "Updated",
-                                                  style: context.textStyle17Medium(color: theme.backgroundColor),
+                                                  style:
+                                                      context.textStyle17Medium(
+                                                          color: theme
+                                                              .backgroundColor),
                                                 ),
                                               );
                                             } else if (state is UpdateError) {
                                               return ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
                                                   shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
                                                   ),
-                                                  backgroundColor: const Color(0xFF1ABC9C),
-                                                  padding: const EdgeInsets.symmetric(vertical: 16),
-                                                  minimumSize: const Size(0, 48),
+                                                  backgroundColor:
+                                                      const Color(0xFF1ABC9C),
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 16),
+                                                  minimumSize:
+                                                      const Size(0, 48),
                                                 ),
                                                 onPressed: () {
-                                                  if (isFirstNameValid && isLastNameValid) {
-                                                    context.read<UpdateBloc>().add(
+                                                  if (isFirstNameValid &&
+                                                      isLastNameValid) {
+                                                    context
+                                                        .read<UpdateBloc>()
+                                                        .add(
                                                           Update(
-                                                            id: localProfile.id.toString(),
-                                                            firstName: _firstNameController.text,
-                                                            lastName: _lastNameController.text,
-                                                            token: BlocProvider.of<UserBloc>(context).state.user?.token ?? "",
+                                                            id: localProfile.id
+                                                                .toString(),
+                                                            firstName:
+                                                                _firstNameController
+                                                                    .text,
+                                                            lastName:
+                                                                _lastNameController
+                                                                    .text,
+                                                            token: BlocProvider.of<
+                                                                            UserBloc>(
+                                                                        context)
+                                                                    .state
+                                                                    .user
+                                                                    ?.token ??
+                                                                "",
                                                           ),
                                                         );
                                                   }
                                                 },
                                                 child: Text(
                                                   "Try again!",
-                                                  style: context.textStyle17Medium(color: theme.backgroundColor),
+                                                  style:
+                                                      context.textStyle17Medium(
+                                                          color: theme
+                                                              .backgroundColor),
                                                 ),
                                               );
                                             } else {
                                               return ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
                                                   shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
                                                   ),
-                                                  backgroundColor: const Color(0xFF1ABC9C),
-                                                  padding: const EdgeInsets.symmetric(vertical: 16),
-                                                  minimumSize: const Size(0, 48),
+                                                  backgroundColor:
+                                                      const Color(0xFF1ABC9C),
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 16),
+                                                  minimumSize:
+                                                      const Size(0, 48),
                                                 ),
                                                 onPressed: () {
-                                                  if (isFirstNameValid && isLastNameValid) {
-                                                    context.read<UpdateBloc>().add(
+                                                  if (isFirstNameValid &&
+                                                      isLastNameValid) {
+                                                    context
+                                                        .read<UpdateBloc>()
+                                                        .add(
                                                           Update(
-                                                            id: localProfile.id.toString(),
-                                                            firstName: _firstNameController.text,
-                                                            lastName: _lastNameController.text,
-                                                            token: BlocProvider.of<UserBloc>(context).state.user?.token ?? "",
+                                                            id: localProfile.id
+                                                                .toString(),
+                                                            firstName:
+                                                                _firstNameController
+                                                                    .text,
+                                                            lastName:
+                                                                _lastNameController
+                                                                    .text,
+                                                            token: BlocProvider.of<
+                                                                            UserBloc>(
+                                                                        context)
+                                                                    .state
+                                                                    .user
+                                                                    ?.token ??
+                                                                "",
                                                           ),
                                                         );
                                                   }
                                                 },
                                                 child: Text(
                                                   "Save",
-                                                  style: context.textStyle17Medium(color: theme.backgroundColor),
+                                                  style:
+                                                      context.textStyle17Medium(
+                                                          color: theme
+                                                              .backgroundColor),
                                                 ),
                                               );
                                             }
@@ -569,7 +703,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               expanded: Container(),
                               header: Row(
                                 children: [
-                                  const Icon(Icons.notifications_on_outlined, color: Color(0xFF7C8592)),
+                                  const Icon(Icons.notifications_on_outlined,
+                                      color: Color(0xFF7C8592)),
                                   const SizedBox(
                                     width: 16,
                                   ),
@@ -604,7 +739,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               expanded: Container(),
                               header: Row(
                                 children: [
-                                  const Icon(Icons.lock_outline_rounded, color: Color(0xFF7C8592)),
+                                  const Icon(Icons.lock_outline_rounded,
+                                      color: Color(0xFF7C8592)),
                                   const SizedBox(
                                     width: 16,
                                   ),
@@ -639,7 +775,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               expanded: Container(),
                               header: Row(
                                 children: [
-                                  const Icon(Icons.favorite_border_outlined, color: Color(0xFF7C8592)),
+                                  const Icon(Icons.favorite_border_outlined,
+                                      color: Color(0xFF7C8592)),
                                   const SizedBox(
                                     width: 16,
                                   ),
