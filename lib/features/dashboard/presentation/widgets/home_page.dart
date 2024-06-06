@@ -1,10 +1,25 @@
 import 'package:dokan/core/shared/extensions/theme.dart';
+import 'package:dokan/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 
 import '../../../../core/shared/shared.dart';
+import '../../domain/entities/product.dart';
 import 'search.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<DashboardBloc>().add(
+          const FetchProduct(),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +46,29 @@ class HomePage extends StatelessWidget {
               )
             ],
           ),
-          body: ListView(
-            shrinkWrap: true,
-            children: [
-              const SizedBox(height: 48),
-              SearchWidget(
-                onTap: () {},
-              )
-            ],
+          body: BlocBuilder<DashboardBloc, DashboardState>(
+            builder: (context, state) {
+              if (state is DashboardLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Color(0xff222455),
+                  ),
+                );
+              } else if (state is DashboardLoaded) {
+                final List<Product> products = state.productList;
+                return ListView(
+                  shrinkWrap: true,
+                  children: [
+                    const SizedBox(height: 48),
+                    SearchWidget(
+                      onTap: () {},
+                    )
+                  ],
+                );
+              } else {
+                return Container();
+              }
+            },
           ),
         );
       },

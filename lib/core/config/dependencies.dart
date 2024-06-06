@@ -9,6 +9,7 @@ Future<void> _setupDependencies() async {
     _signUp,
     _login,
     _profile,
+    _dashboard,
   ]);
 }
 
@@ -138,6 +139,31 @@ Future<void> get _login async {
   );
   sl.registerLazySingleton<SignInRemoteDataSource>(
     () => SignInRemoteDataSourceImpl(
+      client: sl(),
+    ),
+  );
+}
+
+Future<void> get _dashboard async {
+  sl.registerLazySingleton<ProductRepository>(
+    () => ProductRepositoryImpl(
+      local: sl(),
+    ),
+  );
+
+  sl.registerFactory(
+    () => DashboardBloc(
+      useCase: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<ProductUseCase>(
+    () => ProductUseCase(
+      repository: sl(),
+    ),
+  );
+  sl.registerLazySingleton<ProductRemoteDataSource>(
+    () => ProductRemoteDataSourceImpl(
       client: sl(),
     ),
   );
