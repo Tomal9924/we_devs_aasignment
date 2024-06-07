@@ -12,3 +12,9 @@ class FetchProduct extends DashboardEvent {
   @override
   List<Object> get props => [];
 }
+
+class FilterByLowToHighProduct extends DashboardEvent {
+  const FilterByLowToHighProduct();
+  @override
+  List<Object> get props => [];
+}

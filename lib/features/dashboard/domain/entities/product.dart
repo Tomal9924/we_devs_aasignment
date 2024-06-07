@@ -21,8 +21,8 @@ class Product {
   late final String description;
   late final String shortDescription;
   late final String sku;
-  late final String price;
-  late final String regularPrice;
+  late final double price;
+  late final double regularPrice;
   late final String salePrice;
   late final String dateOnSaleFrom;
   late final String dateOnSaleFromGmt;
@@ -81,8 +81,8 @@ class Product {
     description = json['description'];
     shortDescription = json['short_description'];
     sku = json['sku'];
-    price = json['price'];
-    regularPrice = json['regular_price'];
+    price = json['price'] ?? 0.0;
+    regularPrice = json['regular_price'] ?? 0.0;
     salePrice = json['sale_price'];
     priceHtml = json['price_html'];
     onSale = json['on_sale'];

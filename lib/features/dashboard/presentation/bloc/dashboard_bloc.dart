@@ -17,5 +17,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         (products) => emit(DashboardLoaded(products)),
       );
     });
+    on<FilterByLowToHighProduct>((event, emit) async {
+      emit(const DashboardLoading());
+      final result = await useCase();
+      result.fold(
+        (failure) => emit(DashboardError(failure)),
+        (products) => emit(DashboardLoaded(products)),
+      );
+    });
   }
 }

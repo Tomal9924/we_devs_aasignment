@@ -1,8 +1,10 @@
 import 'package:dokan/core/shared/extensions/theme.dart';
 import 'package:dokan/features/dashboard/presentation/bloc/dashboard_bloc.dart';
+import 'package:dokan/features/login/login.dart';
 
 import '../../../../core/shared/shared.dart';
 import '../../domain/entities/product.dart';
+import 'item.dart';
 import 'search.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,13 +58,45 @@ class _HomePageState extends State<HomePage> {
                 );
               } else if (state is DashboardLoaded) {
                 final List<Product> products = state.productList;
-                return ListView(
+                return CustomScrollView(
                   shrinkWrap: true,
-                  children: [
-                    const SizedBox(height: 48),
-                    SearchWidget(
-                      onTap: () {},
-                    )
+                  physics: const ScrollPhysics(),
+                  slivers: [
+                    const SliverToBoxAdapter(child: SizedBox(height: 48)),
+                    SliverToBoxAdapter(
+                      child: SearchWidget(
+                        onFilterTap: (filteredValue) {
+                          if (filteredValue == "Price high > low") {
+                            setState(() {
+                              products
+                                  .sort((b, a) => a.price.compareTo(b.price));
+                            });
+                            return products;
+                          } else if (filteredValue == "Price low > high") {
+                            setState(() {
+                              products
+                                  .sort((a, b) => a.price.compareTo(b.price));
+                            });
+                            return products;
+                          } else {
+                            return [];
+                          }
+                        },
+                      ),
+                    ),
+                    SliverGrid.builder(
+                      itemCount: products.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.66,
+                      ),
+                      itemBuilder: (context, index) {
+                        return Item(
+                          item: products[index],
+                        );
+                      },
+                    ),
                   ],
                 );
               } else {
