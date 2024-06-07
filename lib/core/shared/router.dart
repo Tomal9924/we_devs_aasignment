@@ -1,3 +1,4 @@
+import 'package:dokan/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import 'package:dokan/features/login/presentation/bloc/login_bloc.dart';
 import 'package:dokan/features/signup/presentation/bloc/signup_bloc.dart';
 import 'package:dokan/features/signup/presentation/pages/signup_page.dart';
@@ -28,7 +29,10 @@ final router = GoRouter(
     GoRoute(
       path: DashboardPage.path,
       name: DashboardPage.name,
-      builder: (context, state) => const DashboardPage(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => sl<DashboardBloc>(),
+        child: const DashboardPage(),
+      ),
     ),
   ],
 );

@@ -1,4 +1,10 @@
 import 'package:dokan/core/shared/extensions/theme.dart';
+import 'package:dokan/features/dashboard/data/datasources/remote.dart';
+import 'package:dokan/features/dashboard/data/datasources/remote_impl.dart';
+import 'package:dokan/features/dashboard/data/repositories/repo.dart';
+import 'package:dokan/features/dashboard/domain/repositories/repository.dart';
+import 'package:dokan/features/dashboard/domain/usecases/product.dart';
+import 'package:dokan/features/dashboard/presentation/bloc/dashboard_bloc.dart';
 import '../../features/login/login.dart';
 import '../../features/profile/profile.dart';
 import '../../features/signup/signup.dart';

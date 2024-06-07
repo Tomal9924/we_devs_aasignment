@@ -7,6 +7,7 @@ class ThemeScheme {
   final Color buttonColor;
   final Color errorColor;
   final Color textPrimary;
+  final Color ratingColor;
   final Color textSecondary;
   final Color border;
   final Color iconColor;
@@ -27,6 +28,7 @@ class ThemeScheme {
     required this.successColor,
     required this.iconColor,
     required this.border,
+    required this.ratingColor,
   });
 
   factory ThemeScheme.find({
@@ -38,6 +40,7 @@ class ThemeScheme {
       border: const Color(0xFF263238),
       textPrimary: Colors.black,
       shimmerColor: const Color(0xFFCCD0D3),
+      ratingColor: const Color(0xFFF5A623),
       errorColor: const Color.fromARGB(255, 255, 40, 40),
       buttonColor: const Color(0xFFF75F55),
       blue: const Color(0xFF2893E3),
